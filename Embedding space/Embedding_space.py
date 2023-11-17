@@ -50,23 +50,30 @@ st.sidebar.markdown("Demo build for the blogpost: \n\n https://t.me/abstraction_
 
 
 # User input for words
-user_input = st.text_area("Enter words separated by commas", "time, space, sweet, sour, black, white, время, пространство")
+user_input = st.text_area("Enter words separated by commas", "кот, собака, время, пространство, time, space, sweet, sour, black, white")
 words = [word.strip() for word in user_input.split(',') if word.strip()]
+
 
 # Load embeddings if words are provided
 if words:
     embeddings = calculate_embeddings(words)
 
+    st.write(f" {words[0]}  = ", embeddings[0].reshape(1,-1))
+
     st.header("t-SNE Visualization")
-    plot_embeddings(embeddings, words, method='t-SNE', dimensions=2)
-    plot_embeddings(embeddings, words, method='t-SNE', dimensions=3)
+    col1, col2 = st.columns(2)
+    with col1:
+        plot_embeddings(embeddings, words, method='t-SNE', dimensions=2)
+    with col2:
+        plot_embeddings(embeddings, words, method='t-SNE', dimensions=3)
     
     st.header("PCA Visualization")
-    plot_embeddings(embeddings, words, method='PCA', dimensions=2)
-    plot_embeddings(embeddings, words, method='PCA', dimensions=3)
-
+    col1, col2 = st.columns(2)
+    with col1:
+        plot_embeddings(embeddings, words, method='PCA', dimensions=2)
+    with col2:
+        plot_embeddings(embeddings, words, method='PCA', dimensions=3)
 
 else:
     st.write("Please enter some words to visualize their embeddings.")
 
-st.status(st.write("кот=", embeddings[8]).reshape(-1,1).np().tolist())
