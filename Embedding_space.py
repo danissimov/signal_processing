@@ -64,7 +64,7 @@ st.sidebar.markdown("Demo build for the blogpost: \n\n https://t.me/abstraction_
 
 
 # User input for words
-user_input = st.text_area("Enter words separated by commas", "кот, собака, время, пространство, time, space, sweet, sour, black, white")
+user_input = st.text_area("Enter words separated by commas", "кот, кошка, собака, день, ночь, сон, время, пространство, идёт, время идёт, кошка идёт, собака идёт, кошка спит, пространство спит")
 words = [word.strip() for word in user_input.split(',') if word.strip()]
 
 
