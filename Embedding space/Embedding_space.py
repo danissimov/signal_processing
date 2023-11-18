@@ -15,7 +15,7 @@ def calculate_embeddings(words):
     return outputs.last_hidden_state.mean(dim=1).detach().numpy()
 
 # Function to plot embeddings using Plotly
-def plot_embeddings(embeddings, words, method='PCA', dimensions=2):
+def plot_embeddings(embeddings, words, method='PCA', dimensions=2,  marker_size=10, marker_color='red', marker_text_size=18):
     if method == 'PCA':
         reducer = PCA(n_components=dimensions)
     elif method == 't-SNE':
@@ -26,15 +26,17 @@ def plot_embeddings(embeddings, words, method='PCA', dimensions=2):
     if dimensions == 3:
         trace = go.Scatter3d(x=reduced_embeddings[:, 0], y=reduced_embeddings[:, 1], z=reduced_embeddings[:, 2],
                              mode='markers+text', text=words, textposition='top center',
-                             marker=dict(size=5))
+                             marker=dict(size=marker_size, color=marker_color),
+                             textfont=dict(size=marker_text_size))
         layout = go.Layout(title=f'{method} Embedding Space Visualization (3D)', 
                            scene=dict(xaxis_title='Component 1', yaxis_title='Component 2', zaxis_title='Component 3'))
     else:
         trace = go.Scatter(x=reduced_embeddings[:, 0], y=reduced_embeddings[:, 1],
                            mode='markers+text', text=words, textposition='top center',
-                           marker=dict(size=5))
+                           marker=dict(size=marker_size, color=marker_color),
+                           textfont=dict(size=marker_text_size))
         layout = go.Layout(title=f'{method} Embedding Space Visualization (2D)', 
-                           xaxis_title='Component 1', yaxis_title='Component 2')
+                           xaxis_title='Component 1', yaxis_title='Component 2')    
 
     fig = go.Figure(data=[trace], layout=layout)
     st.plotly_chart(fig)
@@ -45,7 +47,7 @@ st.header("Text Vector Embeddings Visualization")
 st.markdown("Visualizing of the text embeddings using BERT-function and PCA / t-SNE methods for visualization.")
 
 st.sidebar.title("Уровни абстракции")
-st.sidebar.image("logo_var1-01.png")
+st.sidebar.image("https://imagetolink.com/ib/NuXRj07W6Q.png") 
 st.sidebar.markdown("Demo build for the blogpost: \n\n https://t.me/abstraction_layers/11")
 
 

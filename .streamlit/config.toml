@@ -1,0 +1,11 @@
+[theme]
+base = "light"
+
+[browser]
+# Set full width
+server.headless = true
+gatherUsageStats = false
+
+[layout]
+# Use wide mode
+page_size = "wide"
