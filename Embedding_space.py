@@ -16,6 +16,7 @@ def calculate_embeddings(words):
 
 # Function to plot embeddings using Plotly
 def plot_embeddings(embeddings, words, method='PCA', dimensions=2,  marker_size=10, marker_color='red', marker_text_size=18):
+    st.set_page_config(layout="wide")
     if method == 'PCA':
         reducer = PCA(n_components=dimensions)
     elif method == 't-SNE':
